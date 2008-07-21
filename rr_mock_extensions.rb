@@ -5,7 +5,7 @@ module Spec::Rails::Mocks
   # add_stubs) if +stubs+ is passed.
   def mock_model(model_class, options_and_stubs = {})
 
-    m = eval "#{model_class}.new"
+    m = model_class.new
 
     id = next_id
     options_and_stubs.reverse_merge!({
