@@ -1,2 +1,6 @@
+Rspec-rr
+=======
+
 Allow rspec-rails helpers and RR test double framework to play nicely.
 
+Copyright (c) 2008 Joseph Wilk, released under the MIT license
