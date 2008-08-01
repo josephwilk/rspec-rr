@@ -47,4 +47,10 @@ module Spec::Rails::Mocks
     m
   end
   
+    private
+      @@model_id = 1000
+      def next_id
+        @@model_id += 1
+      end
+  
 end
