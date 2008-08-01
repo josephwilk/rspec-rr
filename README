@@ -3,4 +3,12 @@ Rspec-rr
 
 Allow rspec-rails helpers and RR test double framework to play nicely.
 
+== INSTALL:
+
+Add: 
+
+require 'spec_rr' 
+
+to your spec/helper.rb file.
+
 Copyright (c) 2008 Joseph Wilk, released under the MIT license

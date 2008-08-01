@@ -23,10 +23,10 @@ module Spec::Rails::Mocks
     end
 
     options_and_stubs.each do |method,value|
-      value = "'#{value}'" if value.instance_of? String
-      eval "stub(m).#{method}{#{value}}"
+      eval "stub(m).#{method}{value}"
     end
 
+    # I'm a real object so I dont need any of this! 
     # m = mock("#{model_class.name}_#{options_and_stubs[:id]}", options_and_stubs)
     #
     # m.send(:__mock_proxy).instance_eval <<-CODE

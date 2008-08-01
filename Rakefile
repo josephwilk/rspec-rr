@@ -1,15 +1,20 @@
 require 'rake'
-require 'rake/testtask'
 require 'rake/rdoctask'
+require 'spec/rake/spectask'
+require 'rcov'
 
 desc 'Default: run unit tests.'
-task :default => :test
+task :default => :spec
 
-desc 'Test the rspec-rr plugin.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+desc "Run all specs"
+Spec::Rake::SpecTask.new do |t|
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.spec_opts = ['--options', 'spec/spec.opts']
+  unless ENV['NO_RCOV']
+    t.rcov = true
+    t.rcov_dir = 'coverage'
+    t.rcov_opts = ['--exclude', 'lib/spec_rr.rb,,\/var\/lib\/gems,\/Library\/Ruby,\.autotest']
+  end
 end
 
 desc 'Generate documentation for the rspec-rr plugin.'
