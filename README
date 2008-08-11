@@ -5,18 +5,19 @@ Allow rspec-rails helpers and RR test double framework to play nicely.
 
 == INSTALL:
 
-Install via script/plugin
+Install via:
 
 script/plugin install git://github.com/JoeSniff/rspec-rr.git
-
 
 Or grab it directly from git
 
 git clone git://github.com/JoeSniff/rspec-rr.git  
 
+Finally after your:
+require 'spec' 
+require 'spec/rails'
 
-Finally Add: 
-
+Add: 
 require 'spec_rr' 
 
 to your spec/helper.rb file.
