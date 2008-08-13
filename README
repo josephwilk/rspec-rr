@@ -22,4 +22,11 @@ require 'spec_rr'
 
 to your spec/helper.rb file.
 
+== GENERATOR:
+
+Instead of using rspec_scaffold use:
+
+script/generate rspec_rr_scaffold
+
+
 Copyright (c) 2008 Joseph Wilk, released under the MIT license
