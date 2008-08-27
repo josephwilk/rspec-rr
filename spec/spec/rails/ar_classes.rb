@@ -10,6 +10,9 @@ class FakeActiveRecord
   def create!
   end
   
+  def has_attribute?(k)
+  end
+  
 end
 
 class Error
