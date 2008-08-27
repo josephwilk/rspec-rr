@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 require File.dirname(__FILE__) + '/ar_classes.rb'
 
-describe "RR overiding" do
+describe "RR overriding" do
 
   describe "mocking a model" do
 
