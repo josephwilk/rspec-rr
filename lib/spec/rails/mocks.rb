@@ -1,10 +1,9 @@
-module Spec::Rails::Mocks
+Spec::Rails::Mocks.module_eval do
 
   # Creates a mock object instance for a +model_class+ with common
   # methods stubbed out. Additional methods may be easily stubbed (via
   # add_stubs) if +stubs+ is passed.
   def mock_model(model_class, options_and_stubs = {})
-
     m = model_class.new
 
     id = next_id
@@ -14,7 +13,7 @@ module Spec::Rails::Mocks
       :new_record? => false
       # :errors => ''# stub("errors", :count => 0) - cannot do this in RR
     })
-    
+
     #Errors needs a proxy
     if options_and_stubs.has_key?(:errors)
       stub(m.errors).count{options_and_stubs[:errors]}
@@ -26,31 +25,19 @@ module Spec::Rails::Mocks
       eval "stub(m).#{method}{value}"
     end
 
-    # I'm a real object so I dont need any of this! 
-    # m = mock("#{model_class.name}_#{options_and_stubs[:id]}", options_and_stubs)
-    #
-    # m.send(:__mock_proxy).instance_eval <<-CODE
-    #   def @target.is_a?(other)
-    #     #{model_class}.ancestors.include?(other)
-    #   end
-    #   def @target.kind_of?(other)
-    #     #{model_class}.ancestors.include?(other)
-    #   end
-    #   def @target.instance_of?(other)
-    #     other == #{model_class}
-    #   end
-    #   def @target.class
-    #     #{model_class}
-    #   end
-    # CODE
     yield m if block_given?
     m
   end
-  
-  private
-    @@model_id = 1000
-    def next_id
-      @@model_id += 1
-    end
-  
+
+  # TODO - Shouldn't this just be an extension of stub! ??
+  # - object.stub!(:method => return_value, :method2 => return_value2, :etc => etc)
+  #++
+  # Stubs methods on +object+ (if +object+ is a symbol or string a new mock
+  # with that name will be created). +stubs+ is a Hash of +method=>value+
+  def add_stubs(object, stubs = {}) #:nodoc:
+    m = [String, Symbol].index(object.class) ? mock(object.to_s) : object
+    stubs.each {|k,v| eval "stub(m).#{k}{v}"}
+    m
+  end
+
 end

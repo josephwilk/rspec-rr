@@ -1,4 +1,3 @@
 == FEATURES/PROBLEMS:
 
-* stub_model (4 failures on scaffold generated code in template specs)
 * Handling conflict between mock_model call new on the object and mocking 'new' more elegantly
