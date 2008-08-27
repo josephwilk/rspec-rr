@@ -18,8 +18,9 @@ describe <%= controller_class_name %>Controller do
   
       it "should render all <%= table_name.pluralize %> as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
-        mock(<%= class_name %>).find(:all){<%= file_name.pluralize %> = mock("Array of <%= class_name.pluralize %>")}
-        mock(mock_<%= file_name.pluralize %>).to_xml(){"generated XML"}
+        <%= file_name.pluralize %> = []
+        mock(<%= class_name %>).find(:all){<%= file_name.pluralize %>}
+        mock(<%= file_name.pluralize %>).to_xml(){"generated XML"}
         get :index
         response.body.should == "generated XML"
       end
@@ -53,6 +54,8 @@ describe <%= controller_class_name %>Controller do
   describe "responding to GET new" do
   
     it "should expose a new <%= file_name %> as @<%= file_name %>" do
+      #We need to call new before any mocking
+      mock_<%= file_name %>
       mock(<%= class_name %>).new{mock_<%= file_name %>}
       get :new
       assigns[:<%= file_name %>].should equal(mock_<%= file_name %>)
@@ -75,13 +78,15 @@ describe <%= controller_class_name %>Controller do
     describe "with valid params" do
       
       it "should expose a newly created <%= file_name %> as @<%= file_name %>" do
-        mock(<%= class_name %>).new({'these' => 'params'}){mock_<%= file_name %>(:save => true)}
+        <%= file_name %> = mock_<%= file_name %>(:save => true)
+        mock(<%= class_name %>).new({'these' => 'params'}){<%= file_name %>}
         post :create, :<%= file_name %> => {:these => 'params'}
         assigns(:<%= file_name %>).should equal(mock_<%= file_name %>)
       end
 
       it "should redirect to the created <%= file_name %>" do
-        stub(<%= class_name %>).new{mock_<%= file_name %>(:save => true)}
+        <%= file_name %> = mock_<%= file_name %>(:save => true)
+        stub(<%= class_name %>).new{<%= file_name %>}
         post :create, :<%= file_name %> => {}
         response.should redirect_to(<%= table_name.singularize %>_url(mock_<%= file_name %>))
       end
@@ -91,13 +96,15 @@ describe <%= controller_class_name %>Controller do
     describe "with invalid params" do
 
       it "should expose a newly created but unsaved <%= file_name %> as @<%= file_name %>" do
-        stub(<%= class_name %>).new({'these' => 'params'}){mock_<%= file_name %>(:save => false)}
+        <%= file_name %> = mock_<%= file_name %>(:save => false)
+        stub(<%= class_name %>).new({'these' => 'params'}){<%= file_name %>}
         post :create, :<%= file_name %> => {:these => 'params'}
         assigns(:<%= file_name %>).should equal(mock_<%= file_name %>)
       end
 
       it "should re-render the 'new' template" do
-        stub(<%= class_name %>).new{mock_<%= file_name %>(:save => false)}
+        <%= file_name %> = mock_<%= file_name %>(:save => false)
+        stub(<%= class_name %>).new{<%= file_name %>}
         post :create, :<%= file_name %> => {}
         response.should render_template('new')
       end
