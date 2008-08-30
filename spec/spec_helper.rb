@@ -7,7 +7,7 @@ $LOAD_PATH.unshift(File.expand_path("#{dir}/../lib"))
 
 require  "#{dir}/../../../../config/environment"
 require 'spec/rails'
-require 'spec_rr'
+require 'spec/rr'
 
 Spec::Runner.configure do |config|
   config.mock_with :rr
