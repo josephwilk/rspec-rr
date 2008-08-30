@@ -1,1 +1,1 @@
-require 'spec/rails/mocks'
+require 'spec/rr/mocks'
