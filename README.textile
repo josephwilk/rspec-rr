@@ -2,7 +2,7 @@ h1. Rspec-rr
 
 Allow rspec-rails helpers and RR test double framework to play nicely.
 
-h2. INSTALL:
+h2. INSTALL
 
 Install via:
 <pre><code>script/plugin install git://github.com/JoeSniff/rspec-rr.git</code></pre>
@@ -14,12 +14,12 @@ require 'spec/rails'</code></pre>
 Add: 
 <pre><code>require 'spec_rr'</code></pre>
 
-h2. GENERATOR:
+h2. GENERATOR
 
 Instead of using rspec_scaffold use:
 <pre><code>script/generate rspec_rr_scaffold</code></pre>
 
-h2. LICENSE:
+h2. LICENSE
 
 (The MIT License)
 
