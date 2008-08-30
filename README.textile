@@ -5,29 +5,29 @@ Allow rspec-rails helpers and RR test double framework to play nicely.
 h2. INSTALL:
 
 Install via:
-<code>
+<pre><code>
 script/plugin install git://github.com/JoeSniff/rspec-rr.git
-</code>
+</code></pre>
 Or grab it directly from git
-<code>
+<pre><code>
 git clone git://github.com/JoeSniff/rspec-rr.git  
-</code>
+</code></pre>
 Finally in your spec_helper.rb after your:
-<code>
+<pre><code>
 require 'spec' 
 require 'spec/rails'
-</code>
+</code></pre>
 Add: 
-<code>
+<pre><code>
 require 'spec_rr' 
-</code>
+</code></pre>
 
 h2. GENERATOR:
 
 Instead of using rspec_scaffold use:
-
+<pre><code>
 script/generate rspec_rr_scaffold
-
+</code></pre>
 
 h2. LICENSE:
 
