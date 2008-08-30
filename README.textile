@@ -2,6 +2,10 @@ h1. Rspec-rr
 
 Allow rspec-rails helpers and RR test double framework to play nicely.
 
+Dependent on:
+"http://github.com/dchelimsky/rspec/":http://github.com/dchelimsky/rspec/
+"http://github.com/dchelimsky/rspec-rails/":http://github.com/dchelimsky/rspec-rails/
+
 h2. Install
 
 Install via:
