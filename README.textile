@@ -1,35 +1,35 @@
-Rspec-rr
-=======
+h1. Rspec-rr
 
 Allow rspec-rails helpers and RR test double framework to play nicely.
 
-== INSTALL:
+h2. INSTALL:
 
 Install via:
-
+<code>
 script/plugin install git://github.com/JoeSniff/rspec-rr.git
-
+</code>
 Or grab it directly from git
-
+<code>
 git clone git://github.com/JoeSniff/rspec-rr.git  
-
-Finally after your:
+</code>
+Finally in your spec_helper.rb after your:
+<code>
 require 'spec' 
 require 'spec/rails'
-
+</code>
 Add: 
+<code>
 require 'spec_rr' 
+</code>
 
-to your spec/helper.rb file.
-
-== GENERATOR:
+h2. GENERATOR:
 
 Instead of using rspec_scaffold use:
 
 script/generate rspec_rr_scaffold
 
 
-== LICENSE:
+h2. LICENSE:
 
 (The MIT License)
 
