@@ -35,7 +35,7 @@ Spec::Rails::Mocks.module_eval do
   # Stubs methods on +object+ (if +object+ is a symbol or string a new mock
   # with that name will be created). +stubs+ is a Hash of +method=>value+
   def add_stubs(object, stubs = {}) #:nodoc:
-    m = [String, Symbol].index(object.class) ? mock(object.to_s) : object
+    m = [String, Symbol].index(object.class) ? Object.new : object
     stubs.each {|k,v| eval "stub(m).#{k}{v}"}
     m
   end
