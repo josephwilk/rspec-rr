@@ -22,6 +22,14 @@ describe "RR overriding" do
       model.are_you_mocking_me_sir?.should be_true
     end
 
+    it "should allow stubbing of error" do
+      #This is the nearest way we can express errors in RR
+      stub(error_stub = Object.new).count{5}
+      model = mock_model(MockableModel, :errors => error_stub )
+      
+      model.errors.count.should eql(5)
+    end
+
   end
 
   describe "stubbing a model" do
