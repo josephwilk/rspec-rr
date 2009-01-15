@@ -9,31 +9,37 @@ Spec::Rails::Mocks.module_eval do
 
     # our equivalent to Rspecs :errors => ''# stub("errors", :count => 0)
     stub(errors_stub = Object.new).count{0}
-    
-    options_and_stubs.reverse_merge!({
+
+    options_and_stubs.reverse_merge!(
       :id => id,
       :to_param => "#{id}",
       :new_record? => false,
       :errors => errors_stub
-    })
+    )
 
     options_and_stubs.each do |method,value|
-      eval "stub(m).#{method}{value}"
+      stub(m).__send__(method) { value }
     end
 
     yield m if block_given?
     m
   end
 
-  # TODO - Shouldn't this just be an extension of stub! ??
-  # - object.stub!(:method => return_value, :method2 => return_value2, :etc => etc)
-  #++
-  # Stubs methods on +object+ (if +object+ is a symbol or string a new mock
-  # with that name will be created). +stubs+ is a Hash of +method=>value+
-  def add_stubs(object, stubs = {}) #:nodoc:
-    m = [String, Symbol].index(object.class) ? Object.new : object
-    stubs.each {|k,v| eval "stub(m).#{k}{v}"}
-    m
+  def stub_model(model_class, stubs={})
+    stubs = {:id => next_id}.merge(stubs)
+    returning model_class.new do |model|
+      model.id = stubs.delete(:id)
+      model.extend Spec::Rails::Mocks::ModelStubber
+      stubs.each do |k,v|
+        if model.has_attribute?(k)
+          model[k] = stubs.delete(k)
+        end
+      end
+      stubs.each do |k,v|
+        stub(model).__send__(k) { v }
+      end
+      yield model if block_given?
+    end
   end
 
 end
