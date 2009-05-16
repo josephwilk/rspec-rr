@@ -48,7 +48,7 @@ describe "RR overriding" do
     it "should add stub to model" do
       model = stub_model(MockableModel, :new_record? => true)
 
-      model.new_record?.should be_true
+      model.should be_new_record
     end
 
   end
