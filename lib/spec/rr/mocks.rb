@@ -1,5 +1,11 @@
 Spec::Rails::Mocks.module_eval do
 
+  module NullObject
+    def method_missing(sym, *args, &block)
+      nil
+    end
+  end
+
   # Creates a mock object instance for a +model_class+ with common
   # methods stubbed out. Additional methods may be easily stubbed (via
   # add_stubs) if +stubs+ is passed.
@@ -16,6 +22,13 @@ Spec::Rails::Mocks.module_eval do
       :new_record? => false,
       :errors => errors_stub
     )
+
+    if options_and_stubs.has_key?(:null_object)
+      if options_and_stubs[:null_object]
+        m.extend NullObject
+      end
+      options_and_stubs.delete(:null_object)
+    end
 
     options_and_stubs.each do |method,value|
       stub(m).__send__(method) { value }
