@@ -53,34 +53,4 @@ describe "RR overriding" do
 
   end
 
-  describe "adding stubs" do
-
-    it "should create a stubbed object when given a string name" do
-      stubbed_string = add_stubs("test", :yokai? => true)
-
-      stubbed_string.yokai?.should be_true
-    end
-    
-    it "should create a stubbed object when given a symbol" do
-      stubbed_string = add_stubs(:test, :yokai? => true)
-
-      stubbed_string.yokai?.should be_true
-    end
-
-    it "should stub existing object" do
-      object = MockableModel.new
-      add_stubs(object, :yokai? => true)
-
-      object.yokai?.should be_true
-    end
-
-    it "should return the same existing object it passed to stub" do
-      object = MockableModel.new
-      object_returned = add_stubs(object, :yokai? => true)
-
-      object.should equal(object_returned)
-    end
-  
-  end
-
 end
