@@ -97,6 +97,52 @@ describe "RR overriding" do
       model.should be_new_record
     end
 
+    describe "null_object => true" do
+
+      it "should return nil for unknown method" do
+        model = stub_model(MockableModel, :null_object => true)
+
+        model.a_method_which_does_not_exist.should == nil
+      end
+
+      it "should overide nil methods when using stub" do
+        model = stub_model(MockableModel, :null_object => true)
+
+        stub(model).testing{ true }
+
+        model.testing.should == true
+      end
+
+      it "should overide nil methods when using mock" do
+        model = stub_model(MockableModel, :null_object => true)
+
+        mock(model).testing{ true }
+
+        model.testing.should == true
+      end
+
+    end
+
+    describe "null_object => false" do
+
+      it "should raise an error for unknown method" do
+        model = stub_model(MockableModel, :null_object => false)
+
+        lambda{
+          model.a_method_which_does_not_exist
+        }.should raise_error NoMethodError
+      end
+
+      it "should not stub null_object method" do
+        model = stub_model(MockableModel, :null_object => false)
+
+        lambda{
+          model.null_object
+        }.should raise_error NoMethodError
+      end
+
+    end
+    
   end
 
 end

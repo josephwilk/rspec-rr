@@ -10,6 +10,8 @@ Spec::Rails::Mocks.module_eval do
   # methods stubbed out. Additional methods may be easily stubbed (via
   # add_stubs) if +stubs+ is passed.
   def mock_model(model_class, options_and_stubs = {})
+    @options = parse_options(options_and_stubs)
+    
     m = model_class.new
     id = next_id
 
@@ -23,12 +25,7 @@ Spec::Rails::Mocks.module_eval do
       :errors => errors_stub
     )
 
-    if options_and_stubs.has_key?(:null_object)
-      if options_and_stubs[:null_object]
-        m.extend NullObject
-      end
-      options_and_stubs.delete(:null_object)
-    end
+    m.extend NullObject if null_object?
 
     options_and_stubs.each do |method,value|
       stub(m).__send__(method) { value }
@@ -40,7 +37,11 @@ Spec::Rails::Mocks.module_eval do
 
   def stub_model(model_class, stubs={})
     stubs = {:id => next_id}.merge(stubs)
+    @options = parse_options(stubs)
+    
     returning model_class.new do |model|
+      model.extend NullObject if null_object?
+            
       model.id = stubs.delete(:id)
       model.extend Spec::Rails::Mocks::ModelStubber
       stubs.each do |k,v|
@@ -55,4 +56,13 @@ Spec::Rails::Mocks.module_eval do
     end
   end
 
+  private
+  def parse_options(options)
+    options.has_key?(:null_object) ? {:null_object => options.delete(:null_object)} : {}
+  end
+  
+  def null_object?
+    @options[:null_object]
+  end
+  
 end
