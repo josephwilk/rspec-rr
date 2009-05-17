@@ -8,6 +8,8 @@ Dependent on:
 
 "http://github.com/dchelimsky/rspec-rails/":http://github.com/dchelimsky/rspec-rails/
 
+"http://github.com/btakita/rr/tree/master":http://github.com/btakita/rr/tree/master
+
 h2. Install
 
 Install via:
