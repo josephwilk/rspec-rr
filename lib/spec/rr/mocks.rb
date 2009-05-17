@@ -1,7 +1,10 @@
 Spec::Rails::Mocks.module_eval do
 
   module NullObject
-    def method_missing(sym, *args, &block)
+    include ::RR::Space::Reader
+
+    def method_missing(method_name, *args, &block)
+      space.record_call(self, method_name, args, block)
       nil
     end
   end
