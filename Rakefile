@@ -6,6 +6,25 @@ require 'rcov'
 desc 'Default: run unit tests.'
 task :default => :spec
 
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "rspec-rr"
+    gem.summary = %Q{Helping Rspec and Rspec-rails play nicely with RR the test double framework}
+    gem.description = %Q{Helping Rspec and Rspec-rails play nicely with RR the test double framework.}
+    gem.email = "joe@josephwilk.net"
+    gem.homepage = "http://github.com/josephwilk/rspec-rr"
+    gem.authors = ["Joseph Wilk"]
+
+    gem.add_development_dependency 'rspec'
+  end
+
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+end
+
+
 desc "Run all specs"
 Spec::Rake::SpecTask.new do |t|
   t.spec_files = FileList['spec/**/*_spec.rb']
