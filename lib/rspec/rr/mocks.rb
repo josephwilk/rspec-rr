@@ -1,4 +1,4 @@
-Spec::Rails::Mocks.module_eval do
+RSpec::Rails::Mocks.module_eval do
 
   module NullObject
     include ::RR::Space::Reader
@@ -46,7 +46,7 @@ Spec::Rails::Mocks.module_eval do
       model.extend NullObject if null_object?
             
       model.id = stubs.delete(:id)
-      model.extend Spec::Rails::Mocks::ModelStubber
+      model.extend RSpec::Rails::Mocks::ModelStubber
       stubs.each do |k,v|
         if model.has_attribute?(k)
           model[k] = stubs.delete(k)

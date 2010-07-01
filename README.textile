@@ -21,7 +21,7 @@ Finally in your spec_helper.rb after your:
 require 'spec/rails'</code></pre>
 Add: 
 <pre><code>
-require 'spec/rr' 
+require 'rspec/rr' 
 </code></pre>
 
 h2. Generator
