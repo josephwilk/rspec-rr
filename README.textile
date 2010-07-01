@@ -17,8 +17,8 @@ Install via:
 Or grab it directly from git
 <pre><code>git clone git://github.com/josephwilk/rspec-rr.git</code></pre>
 Finally in your spec_helper.rb after your:
-<pre><code>require 'spec' 
-require 'spec/rails'</code></pre>
+<pre><code>require 'rspec' 
+require 'rspec/rails'</code></pre>
 Add: 
 <pre><code>
 require 'rspec/rr' 
