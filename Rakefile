@@ -1,6 +1,6 @@
 require 'rake'
 require 'rake/rdoctask'
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 require 'rcov'
 
 desc 'Default: run unit tests.'
@@ -26,13 +26,10 @@ end
 
 
 desc "Run all specs"
-RSpec::Rake::SpecTask.new do |t|
-  t.spec_files = FileList['spec/**/*_spec.rb']
-  t.spec_opts = ['--options', 'spec/spec.opts']
+RSpec::Core::RakeTask.new do |t|
   unless ENV['NO_RCOV']
     t.rcov = true
-    t.rcov_dir = 'coverage'
-    t.rcov_opts = ['--exclude', 'lib/spec_rr.rb,,\/var\/lib\/gems,\/Library\/Ruby,\.autotest']
+    t.rcov_opts =  %[-Ilib -Ispec --exclude "lib/spec_rr.rb,/var/lib/gems,/Library/Ruby,.autotest,mocks,expectations,gems/*,spec/resources,spec/lib,spec/spec_helper.rb,db/*,/Library/Ruby/*,config/*"]
   end
 end
 
