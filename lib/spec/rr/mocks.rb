@@ -42,7 +42,7 @@ Spec::Rails::Mocks.module_eval do
     stubs = {:id => next_id}.merge(stubs)
     @options = parse_options(stubs)
     
-    returning model_class.new do |model|
+    model_class.new.tap do |model|
       model.extend NullObject if null_object?
             
       model.id = stubs.delete(:id)
