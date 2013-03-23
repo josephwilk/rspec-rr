@@ -18,8 +18,9 @@ Spec::Rails::Mocks.module_eval do
     m = model_class.new
     id = next_id
 
-    # our equivalent to Rspecs :errors => ''# stub("errors", :count => 0)
+    # our equivalent to Rspecs :errors => ''# stub("errors", :count => 0, :empty? => true)
     stub(errors_stub = Object.new).count{0}
+    stub(errors_stub).empty?{true}
 
     options_and_stubs.reverse_merge!(
       :id => id,
